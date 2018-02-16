@@ -18,7 +18,10 @@ package com.example.android.sunshine.utilities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URI;
 import java.util.Scanner;
 
 /**
@@ -50,6 +53,7 @@ public final class NetworkUtils {
     /* The number of days we want our API to return */
     private static final int numDays = 14;
 
+    final static String SCHEME_PARAM = "http";
     final static String QUERY_PARAM = "q";
     final static String LAT_PARAM = "lat";
     final static String LON_PARAM = "lon";
@@ -65,8 +69,18 @@ public final class NetworkUtils {
      * @return The URL to use to query the weather server.
      */
     public static URL buildUrl(String locationQuery) {
-        // TODO (1) Fix this method to return the URL used to query Open Weather Map's API
-        return null;
+        // DONE (1) Fix this method to return the URL used to query Open Weather Map's API
+        String urlString = DYNAMIC_WEATHER_URL + "?" + QUERY_PARAM + "=" + locationQuery;
+        URL url = null;
+        try {
+            URI uri = new URI(urlString);
+            url = uri.toURL();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
     }
 
     /**
