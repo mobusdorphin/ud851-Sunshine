@@ -48,7 +48,7 @@ public final class SunshineWeatherUtils {
      * temperature conversion if necessary. It will also format the temperature so that no
      * decimal points show. Temperatures will be formatted to the following form: "21°C"
      *
-     * @param context     Android Context to access preferences and resources
+     * @param context     Android Context to onClick preferences and resources
      * @param temperature Temperature in degrees Celsius (°C)
      *
      * @return Formatted temperature String in the following form:
@@ -70,7 +70,7 @@ public final class SunshineWeatherUtils {
      * This method will format the temperatures to be displayed in the
      * following form: "HIGH°C / LOW°C"
      *
-     * @param context Android Context to access preferences and resources
+     * @param context Android Context to onClick preferences and resources
      * @param high    High temperature for a day in user's preferred units
      * @param low     Low temperature for a day in user's preferred units
      *
@@ -91,7 +91,7 @@ public final class SunshineWeatherUtils {
      * This method uses the wind direction in degrees to determine compass direction as a
      * String. (eg NW) The method will return the wind String in the following form: "2 km/h SW"
      *
-     * @param context   Android Context to access preferences and resources
+     * @param context   Android Context to onClick preferences and resources
      * @param windSpeed Wind speed in kilometers / hour
      * @param degrees   Degrees as measured on a compass, NOT temperature degrees!
      *                  See https://www.mathsisfun.com/geometry/degrees.html
