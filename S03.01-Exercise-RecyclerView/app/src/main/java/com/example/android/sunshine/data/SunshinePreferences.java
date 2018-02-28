@@ -36,7 +36,7 @@ public class SunshinePreferences {
      * Before you implement methods to return your REAL preference for location,
      * we provide some default values to work with.
      */
-    private static final String DEFAULT_WEATHER_LOCATION = "94043,USA";
+    private static final String DEFAULT_WEATHER_LOCATION = "Cleveland";
     private static final double[] DEFAULT_WEATHER_COORDINATES = {37.4284, 122.0724};
 
     private static final String DEFAULT_MAP_LOCATION =

@@ -38,7 +38,10 @@ public final class NetworkUtils {
     private static final String STATIC_WEATHER_URL =
             "https://andfun-weather.udacity.com/staticweather";
 
-    private static final String FORECAST_BASE_URL = STATIC_WEATHER_URL;
+    private static final String LIVE_WEATHER_URL =
+            "http://api.openweathermap.org/data/2.5/forecast";
+
+    private static final String FORECAST_BASE_URL = LIVE_WEATHER_URL;
 
     /*
      * NOTE: These values only effect responses from OpenWeatherMap, NOT from the fake weather
@@ -60,6 +63,8 @@ public final class NetworkUtils {
     final static String FORMAT_PARAM = "mode";
     final static String UNITS_PARAM = "units";
     final static String DAYS_PARAM = "cnt";
+    final static String API_PARAM = "appid";
+    final static String API_KEY = "5723e7df50aaa82c93bbfae47d313457";
 
     /**
      * Builds the URL used to talk to the weather server using a location. This location is based
@@ -74,6 +79,7 @@ public final class NetworkUtils {
                 .appendQueryParameter(FORMAT_PARAM, format)
                 .appendQueryParameter(UNITS_PARAM, units)
                 .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                .appendQueryParameter(API_PARAM, API_KEY)
                 .build();
 
         URL url = null;

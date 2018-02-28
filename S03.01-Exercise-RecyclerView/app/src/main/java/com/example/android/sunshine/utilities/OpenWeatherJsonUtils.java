@@ -50,11 +50,14 @@ public final class OpenWeatherJsonUtils {
         final String OWM_LIST = "list";
 
         /* All temperatures are children of the "temp" object */
-        final String OWM_TEMPERATURE = "temp";
+//        final String OWM_TEMPERATURE = "temp";
+        final String OWM_TEMPERATURE = "main";
 
         /* Max temperature for the day */
-        final String OWM_MAX = "max";
-        final String OWM_MIN = "min";
+//        final String OWM_MAX = "max";
+//        final String OWM_MAX = "max";
+        final String OWM_MIN = "temp_min";
+        final String OWM_MAX = "temp_max";
 
         final String OWM_WEATHER = "weather";
         final String OWM_DESCRIPTION = "main";
