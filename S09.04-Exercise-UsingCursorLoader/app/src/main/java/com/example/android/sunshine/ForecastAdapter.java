@@ -25,6 +25,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.sunshine.data.WeatherContract;
+import com.example.android.sunshine.utilities.SunshineDateUtils;
+import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 
 import static com.example.android.sunshine.MainActivity.INDEX_WEATHER_DATE;
 import static com.example.android.sunshine.MainActivity.INDEX_WEATHER_DEGREES;
@@ -115,19 +117,21 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 //      DONE (7) Generate a weather summary with the date, description, high and low
         mCursor.moveToPosition(position);
         String _id = mCursor.getString(INDEX_WEATHER_ID);
-        String weatherId = mCursor.getString(INDEX_WEATHER_WEATHER_ID);
-        String date = mCursor.getString(INDEX_WEATHER_DATE);
+        int weatherId = mCursor.getInt(INDEX_WEATHER_WEATHER_ID);
+        long date = mCursor.getLong(INDEX_WEATHER_DATE);
         String minTemp = mCursor.getString(INDEX_WEATHER_MIN_TEMP);
         String maxTemp = mCursor.getString(INDEX_WEATHER_MAX_TEMP);
-        String degrees = mCursor.getString(INDEX_WEATHER_DEGREES);
+//        String degrees = mCursor.getString(INDEX_WEATHER_DEGREES);
         String pressure = mCursor.getString(INDEX_WEATHER_PRESSURE);
         String humidity = mCursor.getString(INDEX_WEATHER_HUMIDITY);
         String windSpeed = mCursor.getString(INDEX_WEATHER_WIND_SPEED);
         String weatherForThisDay =
-                                date + " - Low: " +
+                                SunshineDateUtils.getFriendlyDateString(mContext, date, false) +
+                                /*SunshineWeatherUtils.getStringForWeatherCondition(mContext, weatherId) + */" - Low: " +
                                 minTemp + " - High: " +
-                                maxTemp + " - Location: " +
-                                degrees + " - Pressure: " +
+//                                maxTemp + " - Location: " +
+                                maxTemp + " - Pressure: " +
+//                                degrees + " - Pressure: " +
                                 pressure + " - Humidity: " +
                                 humidity + " - Windspeed: " +
                                 windSpeed;
