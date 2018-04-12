@@ -41,6 +41,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 //  TODO (5) Within bools.xml in the portrait specific directory, add a bool called use_today_layout and set it to false
 
 //  TODO (6) Declare constant IDs for the ViewType for today and for a future day
+    private static final int FUTURE_VIEW_TYPE = 100;
+    private static final int TODAY_VIEW_TYPE = 101;
 
     /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
@@ -67,6 +69,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      * boolean resources.
      */
 //  TODO (7) Declare a private boolean called mUseTodayLayout
+    private boolean mUseTodayLayout;
 
     private Cursor mCursor;
 
@@ -80,7 +83,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     public ForecastAdapter(@NonNull Context context, ForecastAdapterOnClickHandler clickHandler) {
         mContext = context;
         mClickHandler = clickHandler;
-//      TODO (8) Set mUseTodayLayout to the value specified in resources
+        mUseTodayLayout = context.getResources().getBoolean(R.bool.use_today_layout);
+//      DONE (8) Set mUseTodayLayout to the value specified in resources
     }
 
     /**
@@ -97,7 +101,19 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     @Override
     public ForecastAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
+        int layout = 0;
 //      TODO (12) If the view type of the layout is today, use today layout
+        switch (viewType){
+            case TODAY_VIEW_TYPE:
+                layout = R.layout.list_item_forecast_today;
+                break;
+            case FUTURE_VIEW_TYPE:
+                layout = R.layout.forecast_list_item;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown View Type :" + viewType);
+
+        }
 
 //      TODO (13) If the view type of the layout is future day, use future day layout
 
@@ -105,7 +121,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
         View view = LayoutInflater
                 .from(mContext)
-                .inflate(R.layout.forecast_list_item, viewGroup, false);
+                .inflate(layout, viewGroup, false);
 
         return new ForecastAdapterViewHolder(view);
     }
@@ -131,6 +147,16 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         int weatherImageId;
 
 //      TODO (15) If the view type of the layout is today, display a large icon
+        switch (getItemViewType(position)) {
+            case TODAY_VIEW_TYPE:
+                SunshineWeatherUtils.getLargeArtResourceIdForWeatherCondition(weatherId);
+                break;
+            case FUTURE_VIEW_TYPE:
+                SunshineWeatherUtils.getSmallArtResourceIdForWeatherCondition(weatherId);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown View Type! (How did this happen?)");
+        }
 
 //      TODO (16) If the view type of the layout is future day, display a small icon
 
@@ -211,7 +237,16 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         return mCursor.getCount();
     }
 
-//  TODO (9) Override getItemViewType
+    @Override
+    public int getItemViewType(int position) {
+        if (mUseTodayLayout == true && position == 0) {
+            return TODAY_VIEW_TYPE;
+        } else {
+            return FUTURE_VIEW_TYPE;
+        }
+    }
+
+    //  TODO (9) Override getItemViewType
 //      TODO (10) Within getItemViewType, if mUseTodayLayout is true and position is 0, return the ID for today viewType
 //      TODO (11) Otherwise, return the ID for future day viewType
 
